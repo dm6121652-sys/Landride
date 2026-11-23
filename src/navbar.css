@@ -1,0 +1,174 @@
+/* White navbar stays pinned and compacts after the page scrolls. */
+.editorial-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: #fff;
+  border-bottom: 1px solid #e4ebe5;
+  box-shadow: 0 3px 16px rgba(21, 54, 34, 0.03);
+  transition: transform 0.42s cubic-bezier(0.2, 0.75, 0.25, 1), background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.editorial-header .public-nav {
+  min-height: 72px;
+  transition: min-height 0.32s cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+.editorial-header .brand {
+  color: #10251a;
+  font-size: 20px;
+  letter-spacing: -0.7px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.editorial-header .brand-mark {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  transition: width 0.32s, height 0.32s;
+}
+.editorial-header .brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.editorial-header .brand-dot {
+  color: #d2ad2b;
+}
+.editorial-header .public-links {
+  gap: clamp(8px, 1.2vw, 18px);
+  padding: 6px;
+  border: 1px solid #dfe8e1;
+  border-radius: 999px;
+  background: #f8faf8;
+}
+.editorial-header .public-links a {
+  padding: 9px 13px;
+  border-radius: 999px;
+  color: #54665a;
+  font-size: 12px;
+  transition: background 0.18s, color 0.18s;
+}
+.editorial-header .public-links a:hover {
+  background: #eaf2e9;
+  color: #073d27;
+}
+.editorial-header .public-actions {
+  gap: 9px;
+}
+.editorial-header .theme-toggle {
+  width: 39px;
+  height: 39px;
+  border-color: #dfe8e2;
+  background: #fff;
+  color: #073d27;
+}
+.editorial-header .theme-toggle:hover {
+  background: #eaf2e9;
+}
+.editorial-header .button-quiet {
+  color: #20382a;
+}
+.editorial-header .button-quiet:hover {
+  background: #edf5ef;
+}
+.editorial-header .button-primary {
+  min-height: 41px;
+  padding-inline: 17px;
+  border-color: #f2ce57;
+  background: #f2ce57;
+  color: #193423;
+  font-weight: 700;
+}
+.editorial-header .button-primary:hover {
+  border-color: #ffdf75;
+  background: #ffdf75;
+}
+
+/* Scrolled Floating Pill state: pure transparent surround, NO shaded transparent background/blur */
+.editorial-header.nav-scroll-returning,
+.public-site .editorial-header.nav-scroll-returning,
+[data-theme='dark'] .editorial-header.nav-scroll-returning {
+  padding-top: 8px;
+  background: transparent !important;
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: translateY(8px);
+}
+.editorial-header.nav-scroll-returning .public-nav {
+  min-height: 60px;
+  padding-inline: 20px;
+  border: 1px solid #e2e9e3;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  backdrop-filter: none;
+}
+.editorial-header.nav-scroll-returning .brand-mark {
+  width: 42px;
+  height: 42px;
+}
+
+[data-theme='dark'] .editorial-header.nav-scroll-returning .public-nav {
+  background: #252628;
+  border-color: #3d3e40;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 760px) {
+  .editorial-header .public-nav {
+    min-height: 64px;
+  }
+  .editorial-header .brand {
+    font-size: 18px;
+  }
+  .editorial-header .public-actions {
+    gap: 4px;
+  }
+  .editorial-header.nav-scroll-returning .public-nav {
+    min-height: 56px;
+    padding-inline: 12px;
+  }
+}
+@media (max-width: 430px) {
+  .editorial-header .brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+  .editorial-header .public-actions .theme-toggle {
+    width: 33px;
+    height: 33px;
+  }
+  .editorial-header.nav-scroll-returning .public-actions .theme-toggle {
+    width: 31px;
+    height: 31px;
+  }
+}
+@media (max-width: 600px) {
+  /* Keep the public header to one clear action on small screens. */
+  .editorial-header .public-actions .button-quiet {
+    display: none;
+  }
+  .editorial-header .public-actions .button-primary {
+    min-height: 36px;
+    padding-inline: 12px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .editorial-header,
+  .editorial-header .public-nav,
+  .editorial-header .brand-mark {
+    transition: none;
+  }
+}

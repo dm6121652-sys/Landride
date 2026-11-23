@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LU Ride – Request a ride on campus</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--g:#0b8a4b;--gd:#064d2b;--gl:#e7f5ec;--bg:#fff;--ink:#0f1a14;--mute:#5a6b61;--line:#dfe8e2;--bad:#b3261e;
+--d:"Sora",system-ui,sans-serif;--b:"Figtree",system-ui,sans-serif;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.02rem/1.6 var(--b);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:20}
+h1,h2,h3{font-family:var(--d);margin:0;line-height:1.05;letter-spacing:-.03em}
+a{color:inherit}:focus-visible{outline:3px solid var(--g);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.logo{display:flex;align-items:center;gap:.55rem;font:700 1.25rem var(--d);text-decoration:none;letter-spacing:-.03em}
+.logo b{background:var(--g);color:#fff;border-radius:9px;padding:.1rem .5rem}
+nav{display:flex;align-items:center;gap:1.4rem}nav a.l{text-decoration:none;color:var(--mute);font-weight:500}nav a.l:hover{color:var(--g)}
+.btn{font:600 1rem var(--b);padding:.75rem 1.4rem;border-radius:12px;border:2px solid var(--g);background:none;color:var(--g);cursor:pointer;text-decoration:none;display:inline-block}
+.btn.fill{background:var(--g);color:#fff}.btn.sm{padding:.5rem 1rem}.btn.w{width:100%;text-align:center}
+.btn:hover{filter:brightness(.93)}.btn[disabled]{opacity:.45;cursor:not-allowed}
+.hero{padding:clamp(2rem,5vw,4.5rem) 0}.hero .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
+.hero h1{font-size:clamp(2.8rem,7vw,5.4rem);font-weight:700}.hero h1 em{font-style:normal;color:var(--g)}
+.hero p{color:var(--mute);font-size:1.2rem;max-width:30rem;margin:1.4rem 0 2rem}
+.mapbox{background:var(--gl);border:1px solid var(--line);border-radius:22px;overflow:hidden}.mapbox svg{width:100%;height:auto;display:block}
+.tags{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.6rem}.tag{background:var(--gl);color:var(--gd);border-radius:999px;padding:.3rem .9rem;font-size:.9rem;font-weight:500}
+section{padding:clamp(2.5rem,6vw,5rem) 0}section h2{font-size:clamp(2rem,4.5vw,3.2rem);margin-bottom:.6rem}.sub{color:var(--mute);max-width:36rem;margin:0 0 2rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.card{border:1px solid var(--line);border-radius:18px;padding:1.5rem;background:var(--bg)}.card h3{font-size:1.4rem;margin:.9rem 0 .4rem}.card p{margin:0;color:var(--mute)}
+.ic{width:2.8rem;height:2.8rem;border-radius:12px;background:var(--gl);display:grid;place-items:center;font-size:1.4rem}
+.card .from{margin-top:1rem;font:700 1.5rem var(--d);color:var(--g)}
+.band{background:var(--g);color:#fff;border-radius:22px;padding:clamp(1.5rem,4vw,3rem);display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.band b{font:700 clamp(2rem,4vw,3rem) var(--d);display:block;line-height:1}
+details{border-bottom:1px solid var(--line);padding:1rem 0}summary{cursor:pointer;font:600 1.1rem var(--b)}details p{color:var(--mute);margin:.6rem 0 0;max-width:42rem}
+footer{border-top:1px solid var(--line);padding:2rem 0 3rem;color:var(--mute);font-size:.92rem}
+dialog{border:0;border-radius:22px;padding:0;width:min(440px,94vw);background:#fff;color:var(--ink)}dialog::backdrop{background:rgba(6,40,24,.6)}
+.dlg{padding:1.6rem}.tabs{display:flex;gap:.4rem;background:var(--gl);padding:.3rem;border-radius:12px;margin:1rem 0}
+.tabs button{flex:1;font:600 .95rem var(--b);padding:.6rem;border:0;border-radius:9px;background:none;color:var(--mute);cursor:pointer}.tabs button[aria-selected="true"]{background:#fff;color:var(--g);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+label{display:block;font-weight:600;font-size:.9rem;margin:.9rem 0 .3rem}
+input,select{width:100%;font:inherit;padding:.75rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+.err{color:var(--bad);font-size:.9rem;min-height:1.3em;margin:.6rem 0 0}.note{font-size:.82rem;color:var(--mute)}
+#dash{display:none;padding:1.5rem 0 4rem}body.in #dash{display:block}body.in #site{display:none}
+.dh{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem}.dh h1{font-size:clamp(1.8rem,4.5vw,2.8rem)}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap}.chip{background:var(--gl);color:var(--gd);border-radius:12px;padding:.5rem 1rem;font-weight:600}.chip small{display:block;font-weight:400;color:var(--mute);font-size:.78rem}
+.dg{display:grid;grid-template-columns:390px 1fr;gap:1rem;align-items:start}
+.panel{border:1px solid var(--line);border-radius:18px;padding:1.4rem;background:#fff}.panel h2{font-size:1.5rem;margin-bottom:.8rem}
+.types{display:grid;gap:.5rem;margin:.9rem 0}
+.type{display:flex;align-items:center;gap:.9rem;text-align:left;border:2px solid var(--line);border-radius:14px;padding:.7rem .9rem;background:#fff;color:var(--ink);font:inherit;cursor:pointer}
+.type[aria-pressed="true"]{border-color:var(--g);background:var(--gl)}.type .e{font-size:1.6rem}.type div{flex:1}.type b{display:block;line-height:1.2}.type small{color:var(--mute)}.type span{font:700 1.05rem var(--d)}
+.map{position:sticky;top:80px}.map .mapbox{border-radius:18px}
+.live .st{font:700 1.5rem var(--d);letter-spacing:-.02em}.bar{height:8px;background:var(--gl);border-radius:9px;margin:1rem 0;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--g)}
+.drv{display:flex;gap:.9rem;align-items:center;border:1px solid var(--line);border-radius:14px;padding:.9rem;margin:.8rem 0}
+.av{width:3rem;height:3rem;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font:700 1.1rem var(--d)}
+.plate{display:inline-block;border:2px solid var(--ink);border-radius:6px;padding:0 .4rem;font:700 .85rem var(--b);margin-top:.2rem}
+.stars{display:flex;gap:.2rem;font-size:2rem;margin:.6rem 0}.stars button{background:none;border:0;cursor:pointer;color:var(--line);font-size:inherit;padding:0}.stars button.on{color:#f5b301}
+.ride{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}.ride:last-child{border:0}.ride small{color:var(--mute)}.ride b{white-space:nowrap}
+.empty{color:var(--mute);padding:.5rem 0}
+#toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,200%);background:var(--gd);color:#fff;padding:.8rem 1.3rem;border-radius:12px;font-weight:500;transition:transform .3s;z-index:30}#toast.show{transform:translate(-50%,0)}
+[hidden]{display:none!important}
+@media(max-width:900px){.hero .wrap,.dg{grid-template-columns:1fr}.grid3,.band{grid-template-columns:1fr}nav a.l{display:none}.map{position:static;order:-1}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#top"><b>LU</b>Ride</a>
+  <nav><a class="l" href="#how">How it works</a><a class="l" href="#rides">Rides</a><a class="l" href="#faq">FAQ</a><button class="btn fill sm" id="navbtn">Sign in</button></nav>
+</div></header>
+
+<div id="site"><main id="top">
+<section class="hero"><div class="wrap">
+  <div>
+    <h1>Your ride across campus, <em>on request.</em></h1>
+    <p>Tap a pickup and a destination, and a Landmark University driver is on the way. See the price before you book.</p>
+    <button class="btn fill" data-book>Request a ride</button> <a class="btn" href="#rides">See ride types</a>
+    <div class="tags"><span class="tag">Campus-only</span><span class="tag">Fare shown upfront</span><span class="tag">Track your driver live</span></div>
+  </div>
+  <div class="mapbox"><svg id="hmap" viewBox="0 0 600 380" role="img" aria-label="Animated campus map with a ride moving between stops"></svg></div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <h2>Ride in three taps</h2><p class="sub">From “I’m late” to “I’m in” in under a minute.</p>
+  <div class="grid3">
+    <div class="card"><div class="ic">📍</div><h3>Set your trip</h3><p>Choose where you are and where you’re going on campus.</p></div>
+    <div class="card"><div class="ic">🚗</div><h3>Request a driver</h3><p>Pick a Keke, car or bike and we match you with a nearby driver.</p></div>
+    <div class="card"><div class="ic">⭐</div><h3>Ride and rate</h3><p>Watch your driver arrive, enjoy the trip, then rate it.</p></div>
+  </div>
+</div></section>
+
+<section id="rides"><div class="wrap">
+  <h2>Pick your ride</h2><p class="sub">Prices depend on the distance of your trip.</p>
+  <div class="grid3">
+    <div class="card"><div class="ic">🛺</div><h3>Keke</h3><p>Up to 3 passengers. Best for friends heading the same way.</p><div class="from">from ₦150</div></div>
+    <div class="card"><div class="ic">🚗</div><h3>Car</h3><p>Up to 4 passengers. Comfortable and covered when it rains.</p><div class="from">from ₦300</div></div>
+    <div class="card"><div class="ic">🏍️</div><h3>Bike</h3><p>One passenger. The quickest way through a busy campus.</p><div class="from">from ₦150</div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap"><div class="band">
+  <div><b>8</b>campus stops covered</div><div><b>&lt; 5 min</b>typical driver arrival</div><div><b>100%</b>fare shown before you book</div>
+</div></div></section>
+
+<section id="faq"><div class="wrap">
+  <h2>Good to know</h2><p class="sub">&nbsp;</p>
+  <details><summary>Can I cancel a ride?</summary><p>Yes. You can cancel while we’re finding a driver or while the driver is on the way.</p></details>
+  <details><summary>How do I pay?</summary><p>Choose cash or bank transfer when you request. The fare is the price you saw before booking.</p></details>
+  <details><summary>Is the ride safe?</summary><p>You see your driver’s name, vehicle and plate number before they arrive. Check them before you get in.</p></details>
+  <details><summary>Who do I contact about a problem?</summary><p>Contact the campus transport office. Add their number or email here.</p></details>
+</div></section>
+</main></div>
+
+<main id="dash"><div class="wrap">
+  <div class="dh"><div><h1 id="hi">Hello</h1><p class="note" id="mt"></p></div>
+    <div class="chips"><div class="chip"><span id="s1">0</span><small>Rides</small></div><div class="chip"><span id="s2">₦0</span><small>Spent</small></div><button class="btn sm" id="out">Sign out</button></div></div>
+  <div class="dg">
+    <div>
+      <div class="panel" id="form">
+        <h2>Where to?</h2>
+        <label for="pk">Pickup</label><select id="pk"></select>
+        <label for="ds">Destination</label><select id="ds"></select>
+        <div class="types" id="types"></div>
+        <label for="pay">Payment</label><select id="pay"><option>Cash</option><option>Bank transfer</option></select>
+        <p class="err" id="berr"></p>
+        <button class="btn fill w" id="req" disabled style="margin-top:.6rem">Request ride</button>
+      </div>
+      <div class="panel live" id="live" hidden>
+        <div class="st" id="st"></div><p class="note" id="sd" style="font-size:.95rem;margin:.3rem 0 0"></p>
+        <div class="bar"><i id="prog"></i></div>
+        <div class="drv" id="dc" hidden><div class="av" id="av"></div><div><b id="dn"></b> <span id="dr"></span><br><small id="dv"></small><br><span class="plate" id="dp"></span></div></div>
+        <div id="rate" hidden><b>How was your ride?</b><div class="stars" id="stars"></div><button class="btn fill w" id="done">Done</button></div>
+        <button class="btn w" id="cxl">Cancel ride</button>
+      </div>
+      <div class="panel" style="margin-top:1rem"><h2>My rides</h2><div id="hist"></div></div>
+    </div>
+    <div class="map"><div class="mapbox"><svg id="dmap" viewBox="0 0 600 380" role="img" aria-label="Campus map"></svg></div></div>
+  </div>
+</div></main>
+
+<dialog id="auth" aria-label="Sign in"><div class="dlg">
+  <h2 style="font-size:1.7rem">Welcome to LU Ride</h2>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-m="in">Sign in</button><button role="tab" aria-selected="false" data-m="up">Create account</button></div>
+  <div id="fup" hidden><label for="nm">Full name</label><input id="nm" autocomplete="name"><label for="mx">Matric number</label><input id="mx" placeholder="e.g. 22/0001"></div>
+  <label for="em">Email</label><input id="em" type="email" autocomplete="email">
+  <label for="pw">Password</label><input id="pw" type="password" minlength="6">
+  <p class="err" id="aerr" role="alert"></p>
+  <button class="btn fill w" id="go">Sign in</button>
+  <p class="note" style="margin:1rem 0 .6rem">Demo mode: accounts and rides are saved only in this browser, and drivers are simulated.</p>
+  <button class="btn w sm" id="cx">Cancel</button>
+</div></dialog>
+<div id="toast" role="status"></div>
+<footer><div class="wrap">© 2026 LU Ride, Landmark University, Omu-Aran. Stops, prices and drivers are placeholders.</div></footer>
+
+<script>
+var LOCS={"Main Gate":[60,320],"Male Hostels":[130,90],"Female Hostels":[300,60],"Library":[300,190],"Faculty Block":[470,120],"Cafeteria":[210,270],"Chapel":[440,290],"Sports Complex":[540,230]};
+var NAMES=Object.keys(LOCS);
+var TYPES=[{id:"keke",n:"Keke",e:"🛺",s:3,base:100,k:.25},{id:"car",n:"Car",e:"🚗",s:4,base:200,k:.4},{id:"bike",n:"Bike",e:"🏍️",s:1,base:100,k:.2}];
+var DRIVERS=[{n:"Emeka O.",v:"Toyota Corolla",p:"KWR 482 AB",r:4.9,t:"car"},{n:"Sade A.",v:"Honda Civic",p:"LND 207 KJ",r:4.8,t:"car"},{n:"Musa I.",v:"Bajaj Keke",p:"KWR 119 OM",r:4.7,t:"keke"},{n:"Tayo B.",v:"Bajaj Keke",p:"KWR 330 OM",r:4.9,t:"keke"},{n:"Chidi N.",v:"Honda Bike",p:"OMU 564 BK",r:4.8,t:"bike"},{n:"Bola K.",v:"Yamaha Bike",p:"OMU 071 BK",r:4.6,t:"bike"}];
+var $=function(i){return document.getElementById(i)},NS="http://www.w3.org/2000/svg";
+var mem={};function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return mem[k]!==undefined?mem[k]:d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){mem[k]=v}}
+function toast(m){var t=$("toast");t.textContent=m;t.className="show";setTimeout(function(){t.className=""},2600)}
+function hash(s){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")})}
+function pth(a,b){var p=LOCS[a],q=LOCS[b];return"M"+p[0]+" "+p[1]+"H"+q[0]+"V"+q[1]}
+function dist(a,b){var p=LOCS[a],q=LOCS[b];return Math.abs(p[0]-q[0])+Math.abs(p[1]-q[1])}
+function fare(t,a,b){return Math.max(150,Math.round((t.base+dist(a,b)*t.k)/10)*10)}
+function base(svg){
+  svg.innerHTML='<rect width="600" height="380" fill="#e7f5ec"/><path d="M60 320H440M210 270V190H540M130 90H470M300 60V320M130 90V320M470 120V290M540 230V290H440" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>'+
+  NAMES.map(function(n){var p=LOCS[n];return'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="6" fill="#fff" stroke="#064d2b" stroke-width="3"/><text x="'+(p[0]+10)+'" y="'+(p[1]-9)+'" font-size="12" font-weight="600" fill="#064d2b" font-family="Figtree,sans-serif" stroke="#e7f5ec" stroke-width="3" paint-order="stroke">'+n+"</text>"}).join("")+'<g class="ov"></g>'}
+function el(svg,html){var g=svg.querySelector(".ov");g.insertAdjacentHTML("beforeend",html);return g.lastElementChild}
+function carEl(svg){return el(svg,'<g><rect x="-13" y="-8" width="26" height="16" rx="5" fill="#0b8a4b" stroke="#fff" stroke-width="2.5"/><rect x="-7" y="-5" width="14" height="5" rx="2" fill="#fff"/></g>')}
+function fly(path,secs,tick,done,alive){var len=path.getTotalLength(),t0=performance.now();(function f(n){if(!alive())return;var k=Math.min((n-t0)/(secs*1000),1),pt=path.getPointAtLength(len*k);tick(pt,k);k<1?requestAnimationFrame(f):done&&done()})(t0)}
+/* hero loop */
+var hm=$("hmap");base(hm);
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
+  var hc=carEl(hm),hp=el(hm,'<path fill="none" stroke="#0b8a4b" stroke-width="5" stroke-dasharray="2 10" stroke-linecap="round"/>'),last="Main Gate";
+  (function loop(){var to;do{to=NAMES[Math.floor(Math.random()*NAMES.length)]}while(to===last);hp.setAttribute("d",pth(last,to));var from=last;last=to;
+    fly(hp,Math.max(3,dist(from,to)/90),function(p){hc.setAttribute("transform","translate("+p.x+" "+p.y+")")},function(){setTimeout(loop,700)},function(){return true})})();
+}else{hm.querySelector(".ov").innerHTML='<path d="'+pth("Main Gate","Library")+'" fill="none" stroke="#0b8a4b" stroke-width="5" stroke-dasharray="2 10"/>'}
+/* auth */
+var mode="in",user=ld("lu_session",null);
+function setMode(m){mode=m;$("fup").hidden=m!=="up";$("go").textContent=m==="up"?"Create account":"Sign in";document.querySelectorAll(".tabs button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.m===m)});$("aerr").textContent=""}
+document.querySelectorAll(".tabs button").forEach(function(b){b.onclick=function(){setMode(b.dataset.m)}});
+function openAuth(m){setMode(m||"in");if(!$("auth").open)$("auth").showModal()}
+$("cx").onclick=function(){$("auth").close()};
+$("go").onclick=function(){
+  var em=$("em").value.trim().toLowerCase(),pw=$("pw").value,users=ld("lu_users",{}),e=$("aerr");e.textContent="";
+  if(!/^\S+@\S+\.\S+$/.test(em)){e.textContent="Enter a valid email address.";return}
+  if(pw.length<6){e.textContent="Password must be at least 6 characters.";return}
+  hash(pw).then(function(h){
+    if(mode==="up"){var nm=$("nm").value.trim(),mx=$("mx").value.trim();
+      if(!nm||!mx){e.textContent="Enter your full name and matric number.";return}
+      if(users[em]){e.textContent="That email already has an account. Sign in instead.";return}
+      users[em]={name:nm,matric:mx,h:h};sv("lu_users",users)}
+    else if(!users[em]||users[em].h!==h){e.textContent="Email or password is incorrect.";return}
+    user=em;sv("lu_session",em);$("auth").close();$("pw").value="";location.hash="dashboard";route();toast("Signed in")})};
+$("out").onclick=function(){run++;R.phase=null;user=null;sv("lu_session",null);location.hash="top";route();toast("Signed out")};
+function needAuth(){if(user){location.hash="dashboard";route()}else openAuth("up")}
+document.querySelectorAll("[data-book]").forEach(function(b){b.onclick=needAuth});
+$("navbtn").onclick=function(){user?(location.hash="dashboard",route()):openAuth("in")};
+/* ride flow */
+var R={phase:null,type:"keke"},run=0,dm=$("dmap"),car=null;
+$("pk").innerHTML=NAMES.map(function(n){return"<option>"+n+"</option>"}).join("");
+$("ds").innerHTML='<option value="">Choose destination</option>'+NAMES.map(function(n){return"<option>"+n+"</option>"}).join("");
+$("pk").value="Main Gate";
+function rides(){return ld("lu_rides",[])}
+function drawTypes(){var a=$("pk").value,b=$("ds").value;
+  $("types").innerHTML=TYPES.map(function(t){return'<button class="type" data-t="'+t.id+'" aria-pressed="'+(R.type===t.id)+'"><span class="e">'+t.e+'</span><div><b>'+t.n+'</b><small>'+t.s+(t.s>1?" seats":" seat")+(b&&a!==b?" · "+Math.max(2,Math.round(dist(a,b)/150)+1)+" min trip":"")+"</small></div><span>"+(b&&a!==b?"₦"+fare(t,a,b):"–")+"</span></button>"}).join("");
+  var ok=b&&a!==b;$("req").disabled=!ok;$("req").textContent=ok?"Request "+TYPES.filter(function(t){return t.id===R.type})[0].n+" · ₦"+fare(TYPES.filter(function(t){return t.id===R.type})[0],a,b):"Request ride";
+  $("berr").textContent=b&&a===b?"Pickup and destination must be different.":"";
+  base(dm);if(ok){el(dm,'<path d="'+pth(a,b)+'" fill="none" stroke="#0b8a4b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>');var p=LOCS[a],q=LOCS[b];el(dm,'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#0b8a4b" stroke="#fff" stroke-width="3"/>');el(dm,'<rect x="'+(q[0]-9)+'" y="'+(q[1]-9)+'" width="18" height="18" rx="4" fill="#0f1a14" stroke="#fff" stroke-width="3"/>')}}
+$("pk").onchange=$("ds").onchange=drawTypes;
+$("types").onclick=function(e){var b=e.target.closest(".type");if(!b)return;R.type=b.dataset.t;drawTypes()};
+function show(live){$("form").hidden=live;$("live").hidden=!live}
+function status(t,s,k){$("st").textContent=t;$("sd").textContent=s;$("prog").style.width=Math.round((k||0)*100)+"%"}
+$("req").onclick=function(){
+  var a=$("pk").value,b=$("ds").value,t=TYPES.filter(function(x){return x.id===R.type})[0],f=fare(t,a,b),my=++run,alive=function(){return my===run};
+  R.phase="search";show(true);$("dc").hidden=true;$("rate").hidden=true;$("cxl").hidden=false;status("Finding your driver…","Contacting "+t.n+" drivers near "+a,.05);
+  setTimeout(function(){if(!alive())return;
+    var pool=DRIVERS.filter(function(d){return d.t===t.id}),d=pool[Math.floor(Math.random()*pool.length)],from;do{from=NAMES[Math.floor(Math.random()*NAMES.length)]}while(from===a);
+    $("av").textContent=d.n[0];$("dn").textContent=d.n;$("dr").textContent="★ "+d.r;$("dv").textContent=d.v;$("dp").textContent=d.p;$("dc").hidden=false;R.phase="arrive";
+    var eta=Math.max(2,Math.round(dist(from,a)/90)+1);base(dm);el(dm,'<path d="'+pth(a,b)+'" fill="none" stroke="#0b8a4b" stroke-width="6" stroke-opacity=".35" stroke-linecap="round" stroke-linejoin="round"/>');
+    var p=LOCS[a],q=LOCS[b];el(dm,'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#0b8a4b" stroke="#fff" stroke-width="3"/>');el(dm,'<rect x="'+(q[0]-9)+'" y="'+(q[1]-9)+'" width="18" height="18" rx="4" fill="#0f1a14" stroke="#fff" stroke-width="3"/>');
+    car=carEl(dm);var p1=el(dm,'<path d="'+pth(from,a)+'" fill="none"/>');
+    fly(p1,5,function(pt,k){car.setAttribute("transform","translate("+pt.x+" "+pt.y+")");status(d.n.split(" ")[0]+" is on the way","Arriving in "+Math.max(1,Math.ceil((1-k)*eta))+" min · "+d.v,.1+k*.3)},function(){
+      R.phase="trip";$("cxl").hidden=true;toast("Your driver has arrived");var p2=el(dm,'<path d="'+pth(a,b)+'" fill="none"/>');
+      fly(p2,Math.max(6,dist(a,b)/60),function(pt,k){car.setAttribute("transform","translate("+pt.x+" "+pt.y+")");status("On the way to "+b,"Fare ₦"+f+" · "+$("pay").value,.4+k*.6)},function(){
+        R.phase="done";var all=rides();all.push({u:user,a:a,b:b,t:t.n,f:f,d:d.n,at:Date.now(),st:0});sv("lu_rides",all);R.id=all.length-1;
+        status("You’ve arrived","Pay ₦"+f+" ("+$("pay").value+") to "+d.n.split(" ")[0],1);$("rate").hidden=false;drawStars(0);hist()},alive)},alive)},2600)};
+function drawStars(n){$("stars").innerHTML=[1,2,3,4,5].map(function(i){return'<button aria-label="'+i+' stars" data-n="'+i+'" class="'+(i<=n?"on":"")+'">★</button>'}).join("")}
+$("stars").onclick=function(e){var n=+e.target.dataset.n;if(!n)return;var all=rides();all[R.id].st=n;sv("lu_rides",all);drawStars(n);hist()};
+$("done").onclick=function(){R.phase=null;show(false);drawTypes();toast("Thanks for riding with LU Ride")};
+$("cxl").onclick=function(){run++;R.phase=null;show(false);drawTypes();toast("Ride cancelled")};
+function hist(){var us=ld("lu_users",{})[user];if(!us)return;var mine=rides().filter(function(r){return r.u===user});
+  $("s1").textContent=mine.length;$("s2").textContent="₦"+mine.reduce(function(s,r){return s+r.f},0);
+  $("hist").innerHTML=mine.length?mine.slice().reverse().map(function(r){return'<div class="ride"><div><b style="white-space:normal">'+r.a+" to "+r.b+"</b><br><small>"+new Date(r.at).toLocaleDateString("en-NG",{day:"numeric",month:"short"})+" · "+r.t+" · "+r.d+(r.st?" · "+"★".repeat(r.st):"")+"</small></div><b>₦"+r.f+"</b></div>"}).join(""):'<p class="empty">No rides yet. Choose a destination to request your first one.</p>'}
+function route(){
+  var d=location.hash==="#dashboard";if(d&&!user){openAuth("in");location.hash="top";d=false}
+  document.body.classList.toggle("in",d&&!!user);$("navbtn").textContent=user?"Dashboard":"Sign in";
+  if(d&&user){var us=ld("lu_users",{})[user];if(!us)return;$("hi").textContent="Hello, "+us.name.split(" ")[0];$("mt").textContent="Matric no. "+us.matric;if(!R.phase){show(false);drawTypes()}hist();scrollTo(0,0)}}
+addEventListener("hashchange",route);route();
+</script>
+</body>
+</html>
