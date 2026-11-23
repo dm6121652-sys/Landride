@@ -478,3 +478,7 @@ h1.clean-hero-title .hero-title-line{display:block;width:100%;white-space:nowrap
   .rides-page-heading>.button{width:100%}
 }
 @media(max-width:500px){.dash-header .theme-toggle{width:34px;height:34px}.dash-header .dash-signout{width:34px;min-height:34px}.dash-greeting h1{font-size:30px}.rides-page-heading h1{font-size:22px}.reference-panel{border-radius:15px}}
+
+/* Keep decorative hero artwork from widening the deployed page viewport. */
+html,body,#root{max-width:100%;overflow-x:clip}
+.public-site{width:100%;max-width:100%;overflow-x:clip}
