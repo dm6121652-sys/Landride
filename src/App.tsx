@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import AuthPanel from './AuthPanel'
 import StudentApp from './StudentApp'
+import AdminApp from './AdminApp'
 import LandingPage from './LandingPage'
 import { Brand } from './Brand'
 import { supabase, supabaseConfigured } from './lib/supabase'
@@ -15,6 +16,7 @@ export default function App() {
   const [profileReady, setProfileReady] = useState(false)
   const [displayName, setDisplayName] = useState('')
   const [matricNumber, setMatricNumber] = useState('')
+  const [userRole, setUserRole] = useState<'student' | 'driver' | 'admin' | ''>('')
   const [accessError, setAccessError] = useState('')
   const [authOpen, setAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin')
@@ -36,12 +38,14 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (!supabase || !session) { setProfileReady(false); setAccessError(''); return }
+    if (!supabase || !session) { setProfileReady(false); setAccessError(''); setUserRole(''); return }
     let alive = true
     void supabase.from('profiles').select('role,display_name,matric_number').eq('id', session.user.id).single().then(({ data, error }) => {
       if (!alive) return
       if (error) { setAccessError(error.message); setProfileReady(true); return }
-      if (data.role !== 'student') { setAccessError('This account is not set up as a student account.'); setProfileReady(true); return }
+      setUserRole(data.role)
+      if (data.role === 'driver') { setAccessError('Open the Landride Driver app to manage your shuttle and ride requests.'); setProfileReady(true); return }
+      if (data.role !== 'student' && data.role !== 'admin') { setAccessError('This account does not have access to Landride.'); setProfileReady(true); return }
       setDisplayName(data.display_name || session.user.email || 'Student')
       setMatricNumber(data.matric_number || '')
       setAccessError('')
@@ -57,5 +61,6 @@ export default function App() {
   </>
   if (!profileReady) return <div className="auth-screen"><div className="auth-card loading-card">Checking your student account…</div></div>
   if (accessError) return <div className="auth-screen"><div className="auth-card"><Brand/><h1>Account setup needed</h1><p className="auth-copy">{accessError}</p><button className="button button-primary" onClick={() => supabase?.auth.signOut()}>Sign out</button></div></div>
+  if (userRole === 'admin') return <AdminApp displayName={displayName} darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)} session={session}/>
   return <StudentApp displayName={displayName} matricNumber={matricNumber} darkMode={darkMode} onToggleTheme={() => setDarkMode(value => !value)} session={session}/>
 }
